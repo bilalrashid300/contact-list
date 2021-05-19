@@ -1,0 +1,20 @@
+.cardContainer, .cardContent{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.cardContainer{
+    margin-bottom: 20px;
+}
+
+.cardImage{
+    max-width: 60px;
+    max-height: 60px;
+    border-radius: 60px;
+    margin-right: 10px;
+}
+
+.cardDetail P{
+    margin-bottom: .5rem;
+}
