@@ -20,17 +20,22 @@ const Home = () => {
     }
 
     const handleSubmit = (e) =>{
-       const contactArray = [...contacts];
-       e.preventDefault();
-       const contact = {
-            id: uuid(),
-            imagePath: {userImage},
-            name: name,
-            email: email
-       }
-       contactArray.push(contact)
-       setContacts(contactArray)
-       reset();
+        e.preventDefault();
+        if(name == "" && email == ""){
+            alert("Please Fill Empty Feild")
+        }
+        else{
+            const contactArray = [...contacts];
+            const contact = {
+                    id: uuid(),
+                    imagePath: {userImage},
+                    name: name,
+                    email: email
+            }
+            contactArray.push(contact)
+            setContacts(contactArray)
+            reset();
+        }
     }
 
     const deleteContact = (id) => {

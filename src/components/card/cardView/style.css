@@ -18,3 +18,7 @@
 .cardDetail P{
     margin-bottom: .5rem;
 }
+
+i{
+    cursor: pointer;
+}
