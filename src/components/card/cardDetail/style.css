@@ -1,0 +1,36 @@
+.cardDetailContainer{
+    max-width: 600px;
+    margin: auto;
+}
+
+.cardDetailContainer .cardContent{
+    display: block;
+    text-align: center;
+    padding-top: 1rem;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 8px #E2E2E2;
+}
+
+.cardDetailContainer .cardImage{
+    max-width: 150px;
+    max-height: 150px;
+    width: 100%;
+    border-radius: 100%;
+    margin: auto;
+    margin-bottom: 1rem;
+}
+
+.cardDetailContainer .cardDetail{
+    text-align: left;
+    padding: 1rem;
+    background: #d2d2d2;
+}
+
+.cardDetailContainer .cardDetail p{
+    margin-bottom: 1rem;
+}
+
+.cardDetail p:last-child{
+    margin-bottom: 0rem;
+}

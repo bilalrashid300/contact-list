@@ -1,11 +1,21 @@
+.cardList .cardContainer{
+    padding-bottom: .9rem;
+    border-bottom: 1px solid #E3E3E3;
+}
+
 .cardContainer, .cardContent{
     display: flex;
     align-items: center;
     width: 100%;
 }
 
+.cardBtn{
+    display: flex;
+    align-items: center;
+}
+
 .cardContainer{
-    margin-bottom: 20px;
+    margin-bottom: .9rem;
 }
 
 .cardImage{
@@ -16,7 +26,9 @@
 }
 
 .cardDetail P{
-    margin-bottom: .5rem;
+    color: #000;
+    margin-bottom: 0rem;
+    cursor: pointer;
 }
 
 i{

@@ -1,0 +1,12 @@
+.modal-footer{
+    flex-wrap: inherit;
+}
+
+.modal-body{
+    text-align: center;
+}
+
+.btn-delete{
+    background: red;
+    color: #fff;
+}

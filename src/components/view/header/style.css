@@ -1,0 +1,11 @@
+.header{
+    text-align: center;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    box-shadow: 0px 0px 8px #E2E2E2;
+    background: #FFFFFF;
+}
+
+.header h2{
+    margin-bottom: 0px;
+}

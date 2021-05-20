@@ -1,8 +1,12 @@
 import react,{useState,useEffect} from 'react';
+import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
 import {uuid} from 'uuidv4'
-import Input from '../../input/index'
-import Button from '../../button/index'
+import Header from '../header/index'
+import ContactEditForm from '../../form/editContact/index'
+import ContactForm from '../../form/addContact/index'
 import CardListing from '../../card/cardListing/index'
+import CardDetail from '../../card/cardDetail/index'
+import api from '../../../api/contacts'
 import userImage from '../../images/user.webp'
 
 import './style.css'
@@ -10,45 +14,44 @@ import './style.css'
 const Home = () => {
     const LOCAL_STORAGE_KEY = 'contacts'
     const [contacts, setContacts] = useState([]);
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [imagePath, setImagePath] = useState({userImage})
-    const reset = () => {
-        setName('');
-        setEmail('');
-        setImagePath('');
+
+    const retreiveContacts = async () => {
+        const res = await api.get("/contacts");
+        return res.data;
     }
 
-    const handleSubmit = (e) =>{
-        e.preventDefault();
-        if(name == "" && email == ""){
-            alert("Please Fill Empty Feild")
-        }
-        else{
-            const contactArray = [...contacts];
-            const contact = {
-                    id: uuid(),
-                    imagePath: {userImage},
-                    name: name,
-                    email: email
-            }
-            contactArray.push(contact)
-            setContacts(contactArray)
-            reset();
-        }
+    const updateContact = async (contact) => {
+        const res = await api.put(`/contacts/${contact.id}`,contact);
+        const {id} = res.data
+        setContacts(contacts.map((contact) => {
+            return contact.id === id ? {...res.data} : contact;
+        }))
     }
 
-    const deleteContact = (id) => {
+    const addContact = async (contact) => {
+        const request = {
+            id: uuid(),
+            ...contact
+        }
+        const res = await api.post("/contacts",request);
+        setContacts([...contacts,res.data]);
+    }
+
+    const deleteContact = async (id) => {
+        await api.delete(`/contacts/${id}`)
         const newContactList = contacts.filter((contact)=>{
-            return contact.id != id;
+            return contact.id !== id;
         })
         setContacts(newContactList);
     }
 
     useEffect(() => {
-        const retreiveContacts = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
-        if(retreiveContacts)
-            setContacts(retreiveContacts)
+        const getAllContacts = async () => {
+            const retreive = await retreiveContacts();
+            if(retreive) 
+                setContacts(retreive);
+        }
+        getAllContacts()
     },[])
 
     useEffect(() => {
@@ -56,18 +59,20 @@ const Home = () => {
     },[contacts])
 
     return(
-        <div className="container my-3">
-            <div className="row">
-                <div className="col-md-6">
-                    <form className="form" onSubmit={handleSubmit}>
-                        <h1>Contact Form</h1>
-                        <Input type="text" label="Name"  name="name"  value={name} onChange={(e) => setName(e.target.value)} />
-                        <Input type="email" label="Email"  name="email" value={email}  onChange={(e) => setEmail(e.target.value)} />
-                        <Button>ADD</Button>
-                    </form>
-                </div>
-                <div className="col-md-6">
-                    <CardListing contact={contacts} deleteContact={deleteContact} />
+        <div className="">
+            <Header />
+            <div className="container my-4">
+                <div className="row">
+                    <Router>
+                        <Switch>
+                            <div className="col-md-12">
+                                <Route path="/edit" render={(props) => (<ContactEditForm {...props} updateContact={updateContact}/>)} />
+                                <Route path="/add" render={(props) => (<ContactForm {...props} addContact={addContact}/>)} />
+                                <Route exact path="/" render={(props) => (<CardListing {...props} contact={contacts} deleteContact={deleteContact} />)} />
+                                <Route path ="/contact/:id" component={CardDetail} />
+                            </div>
+                        </Switch>
+                    </Router>
                 </div>
             </div>
         </div>
