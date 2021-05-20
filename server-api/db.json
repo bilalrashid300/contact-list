@@ -1,0 +1,20 @@
+{
+  "contacts": [
+    {
+      "id": "077c5054-549e-429e-ab2f-7d0e9f031124",
+      "imagePath": {
+        "userImage": "/static/media/user.513a592a.webp"
+      },
+      "name": "bilal",
+      "email": "bilalrashid200@yahoo.com"
+    },
+    {
+      "id": "f1c758c7-4c5e-4271-996e-aba107539f9b",
+      "imagePath": {
+        "userImage": "/static/media/user.513a592a.webp"
+      },
+      "name": "ali malik",
+      "email": "ali@gmail.com"
+    }
+  ]
+}
