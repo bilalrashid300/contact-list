@@ -1,5 +1,3 @@
-import react from 'react';
-import userImage from '../../images/user.webp' 
 import './style.css'
 
 const CardDetail = (props) => {
@@ -7,7 +5,7 @@ const CardDetail = (props) => {
     return(
         <div className="cardDetailContainer">
             <div className="cardContent">
-                <img className="cardImage" src={imagePath.userImage} />
+                <img className="cardImage" src={imagePath.userImage} alt="user" />
                 <div className="cardDetail">
                     <p>{name}</p>
                     <p>{email}</p>

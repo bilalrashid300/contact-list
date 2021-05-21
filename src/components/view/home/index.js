@@ -1,4 +1,4 @@
-import react,{useState,useEffect} from 'react';
+import {useState,useEffect} from 'react';
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom';
 import {uuid} from 'uuidv4'
 import Header from '../header/index'
@@ -7,13 +7,27 @@ import ContactForm from '../../form/addContact/index'
 import CardListing from '../../card/cardListing/index'
 import CardDetail from '../../card/cardDetail/index'
 import api from '../../../api/contacts'
-import userImage from '../../images/user.webp'
 
 import './style.css'
 
 const Home = () => {
     const LOCAL_STORAGE_KEY = 'contacts'
     const [contacts, setContacts] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [searchResult, setSearchResult] = useState([])
+
+    const searchHandler = (item) => {
+        setSearchTerm(item)
+        if(item !== ""){
+            const newContactList = contacts.filter((contact) => {
+                return Object.values(contact).join("").toLowerCase().includes(item.toLowerCase());
+            });
+            setSearchResult(newContactList)
+        }
+        else{
+            setSearchResult(contacts)
+        }
+    }
 
     const retreiveContacts = async () => {
         const res = await api.get("/contacts");
@@ -68,7 +82,7 @@ const Home = () => {
                             <div className="col-md-12">
                                 <Route path="/edit" render={(props) => (<ContactEditForm {...props} updateContact={updateContact}/>)} />
                                 <Route path="/add" render={(props) => (<ContactForm {...props} addContact={addContact}/>)} />
-                                <Route exact path="/" render={(props) => (<CardListing {...props} contact={contacts} deleteContact={deleteContact} />)} />
+                                <Route exact path="/" render={(props) => (<CardListing {...props} contact={searchTerm.length > 0 ? searchResult : contacts} searchTerm={searchTerm} searchHandler={searchHandler} deleteContact={deleteContact} />)} />
                                 <Route path ="/contact/:id" component={CardDetail} />
                             </div>
                         </Switch>

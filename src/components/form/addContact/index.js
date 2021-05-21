@@ -1,4 +1,4 @@
-import react,{useState,useEffect} from 'react';
+import {useState} from 'react';
 import {Link} from 'react-router-dom'
 import Input from '../../input/index'
 import Button from '../../button/index'
@@ -7,7 +7,6 @@ import '../style.css'
 
 const ContactForm = (props) => {
 
-    // const [contacts, setContacts] = useState([]);
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [imagePath, setImagePath] = useState(null)
@@ -20,7 +19,6 @@ const ContactForm = (props) => {
     }
 
     const onChangePicture = (e) => {
-        // console.log(e.target.files[0])
         if (e.target.files[0]) {
           setImagePath(e.target.files[0]);
           const reader = new FileReader();

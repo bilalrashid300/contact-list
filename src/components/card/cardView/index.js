@@ -1,4 +1,4 @@
-import react, {useState} from 'react';
+import {useState} from 'react';
 import {Link} from 'react-router-dom'
 import CardDeletePopup from '../../modal/cardDeletePopup/index'
 import './style.css'
@@ -25,7 +25,7 @@ const Card = (props) => {
     return(
         <div className="cardContainer">
             <div className="cardContent">
-                <img className="cardImage" src={imagePath.userImage} />
+                <img className="cardImage" src={imagePath.userImage} alt="user"  />
                 <Link to={{pathname:`/contact/${id}`, state:{contact:props.contact}}}>
                     <div className="cardDetail">
                         <p>{name}</p>

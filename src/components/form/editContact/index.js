@@ -1,4 +1,4 @@
-import react,{useState,useEffect} from 'react';
+import {useState} from 'react';
 import {Link} from 'react-router-dom'
 import Input from '../../input/index'
 import Button from '../../button/index'
@@ -7,15 +7,11 @@ import '../style.css'
 
 const ContactEditForm = (props) => {
 
-    // const [contacts, setContacts] = useState([]);
-    const {id,propImagePath,propName,propEmail} = props.location.state.contact;
-    console.log(props)
+    const {id} = props.location.state.contact;
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [imagePath, setImagePath] = useState(null)
     const [imgData, setImgData] = useState(null);
-    // setName(propName);
-    // setEmail(propEmail);
 
     const reset = () => {
         setName('');
@@ -25,7 +21,6 @@ const ContactEditForm = (props) => {
     }
 
     const onChangePicture = (e) => {
-        // console.log(e.target.files[0])
         if (e.target.files[0]) {
           setImagePath(e.target.files[0]);
           const reader = new FileReader();
@@ -48,7 +43,6 @@ const ContactEditForm = (props) => {
                     name: name,
                     email: email
             }
-            console.log(contact)
             props.updateContact(contact)
             props.history.push('/')
             reset();
